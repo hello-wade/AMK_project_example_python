@@ -14,8 +14,9 @@ import argparse, pafy, ffmpeg, pyaudio
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from oauth2client.tools import argparser
 
-DEVELOPER_KEY = '사용자의 API키를 넣어주세요'
+DEVELOPER_KEY = "AIzaSyAM56qR54q9VlBdRtFG74NC0k01E50FoSM"
 YOUTUBE_API_SERVICE_NAME = 'youtube'
 YOUTUBE_API_VERSION = 'v3'
 
@@ -40,6 +41,7 @@ def callback(channel):
 GPIO.add_event_detect(29, GPIO.FALLING, callback=callback, bouncetime=10)
 
 def youtube_search(options):
+  print(options)
   try:
     youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
 
@@ -63,6 +65,7 @@ def youtube_search(options):
         url.append(search_result['id']['videoId'])
 
     resultURL = "https://www.youtube.com/watch?v=" + url[0]
+    print(resultURL)
     return resultURL
 
   except :
@@ -110,14 +113,14 @@ def main():
       print('KWS Dectected ...\n Start STT...')
       text = gv2t.getVoice2Text()
       print('Recognized Text: '+ text)
-      if text.find("노래 틀어줘") >= 0 or text.find("노래 틀어줘") >=0 :
+      if text.find("노래 틀어줘") >= 0 or text.find("노래 들려줘")>=0 or text.find("노래")>=0 :
         split_text = text.split(" ")
         serach_text = split_text[split_text.index("노래") -1]
         output_file = "search_text.wav"
         tts.getText2VoiceStream("유튜브에서 " + serach_text + "노래를 재생합니다.", output_file)
         MS.play_file(output_file)
 
-        result_url = youtube_search(serach_text)
+        result_url = youtube_search(serach_text+"노래")
         play_with_url(result_url)
 
       time.sleep(2)
