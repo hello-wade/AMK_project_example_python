@@ -5,9 +5,9 @@ GPIO.setup(31, GPIO.OUT)
 
 while True:
     GPIO.output(31, True)
-    print(“led on”)
+    print("led on”)
     time.sleep(2)
 
     GPIO.output(31, False)
-    print(“led off”)
+    print("led off”)
     time.sleep(2)
