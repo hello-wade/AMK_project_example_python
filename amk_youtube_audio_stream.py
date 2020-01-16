@@ -14,7 +14,6 @@ import argparse, pafy, ffmpeg, pyaudio
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from oauth2client.tools import argparser
 
 DEVELOPER_KEY = "AIzaSyAM56qR54q9VlBdRtFG74NC0k01E50FoSM"
 YOUTUBE_API_SERVICE_NAME = 'youtube'
